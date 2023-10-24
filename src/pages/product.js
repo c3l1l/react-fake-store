@@ -15,7 +15,7 @@ function Product() {
         <>
   <div className="container mt-4">
         {
-            loading && <p className="text-center">Loading....</p>
+            loading && <div className="text-center">Loading....</div>
         }
         {
             products.map((product,index)=>(

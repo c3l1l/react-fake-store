@@ -1,6 +1,6 @@
 
 function ProductComponent({product}){
-    
+
     const addBasket=()=>alert("Product added to Basket!");
     return (
         <>
@@ -11,7 +11,7 @@ function ProductComponent({product}){
                         <p className="card-text text-truncate">{product.description}</p>
                     </div>
                     <div className="text-center" style={{fontWeight:"bold", color:"red"}}>Price:{product.price}£</div>
-                    <button onClick={addBasket} className="btn btn-outline-success">Sepete Ekle</button>
+                    <button onClick={addBasket} className="btn btn-outline-success">Add to Basket</button>
                 </div>
         </>
     );
