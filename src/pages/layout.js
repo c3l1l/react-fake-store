@@ -1,6 +1,15 @@
+import { createContext, useContext, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import Product from "./product";
+
+export const SearchContext=createContext();
 
 function Layout() {
+         const [search,setSearch]=useState("");
+        const searchProduct=(e)=>{
+            e.preventDefault();
+            console.log(search+"in layout");
+        };
     return (
         <>
 
@@ -36,14 +45,13 @@ function Layout() {
                                 <Link className="nav-link active" to="/login" >Login</Link>
                             </li>
                         </ul>
-                        <form className="d-flex" role="search">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                            <input type="search" value={search} onChange={(e)=>setSearch(e.target.value)}  className="form-control me-2 w-25" placeholder="Search" aria-label="Search" />
                     </div>
                 </div>
             </nav>
+        <SearchContext.Provider value={search}>
             <Outlet />
+        </SearchContext.Provider>
         </>
     );
 }

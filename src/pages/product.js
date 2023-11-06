@@ -1,16 +1,28 @@
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState,useEffect, useContext } from "react";
 import ProductComponent from "../components/ProductComponent";
+import {SearchContext} from '../pages/layout';
+
+
 function Product() {
     const [products,setProducts]=useState([]);
     const [loading,setLoading]=useState(true);
+    const search=useContext(SearchContext);
+    // const [search,setSearch]=useState("");
     useEffect(()=>{
         axios.get("https://fakestoreapi.com/products")
         .then((res)=>setProducts(res.data))
         .finally(()=>setLoading(false));
 
-    },[]);
-   // const addBasket=()=>alert("Product added to Basket!");
+    },[search]);
+
+    console.log(search);
+    const filteredProducts=products.filter((product)=>
+    product.title.toLowerCase().includes(search.toLowerCase()) ||
+    product.description.toLowerCase().includes(search.toLowerCase()));
+    console.log(filteredProducts);
+
+    console.log("search in Product"+search);
     return (
         <>
   <div className="container mt-4">
@@ -18,18 +30,9 @@ function Product() {
             loading && <div className="text-center">Loading....</div>
         }
         {
-            products.map((product,index)=>(
+            filteredProducts.map((product,index)=>(
 
                 <ProductComponent product={product} />
-                // <div  className="card text-center m-4" style={{width:"18rem", height:"20rem", float:"left"}}>
-                //     <img src={product.image} className="card-img-top" style={{display:"block", margin:"auto",width:"100px", height:"100px"}} alt="..." />
-                //     <div className="card-body">
-                //         <div className="card-title" style={{fontWeight:"bold"}}>{product.title}</div>
-                //         <p className="card-text text-truncate">{product.description}</p>
-                //     </div>
-                //     <div className="text-center" style={{fontWeight:"bold", color:"red"}}>Price:{product.price}£</div>
-                //     <button onClick={addBasket} className="btn btn-outline-success">Sepete Ekle</button>
-                // </div>
 
             ))
         }
