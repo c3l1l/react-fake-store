@@ -16,7 +16,6 @@ function Product() {
 
     },[search]);
 
-    console.log(search);
     const filteredProducts=products.filter((product)=>
     product.title.toLowerCase().includes(search.toLowerCase()) ||
     product.description.toLowerCase().includes(search.toLowerCase()));
